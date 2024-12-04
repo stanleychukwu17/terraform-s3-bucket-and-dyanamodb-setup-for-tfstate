@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "tfstate" {
-  bucket        = "tfstate-${var.region}-${timestamp()}"
+  bucket        = "tfstate-demo-app-remote-backend-${formatdate("YYYY-MM-DD-HH-mm-ss", timestamp())}"
   force_destroy = true # don't do this for production apps
 }
 
@@ -37,7 +37,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "tfstate_encryptio
 }
 
 resource "aws_dynamodb_table" "tfstate_lock" {
-  name         = "tfstate-lock"
+  name         = "tfstate-demo-app-remote-lock"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
 
